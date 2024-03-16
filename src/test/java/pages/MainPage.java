@@ -14,7 +14,7 @@ public class MainPage extends BasePage{
     }
 
 
-    public <T extends BasePage> T openTopMenu(String topMenuItem){
+    public static <T extends BasePage> T openTopMenu(String topMenuItem){
         WebElement menuItem = driver.findElement(
                 By.xpath("//a[contains(text(),'"+topMenuItem+"')]"));
         menuItem.click();

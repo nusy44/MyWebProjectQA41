@@ -62,7 +62,7 @@ public class BaseTest {
         WebDriver driver = getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(20000));
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(20000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(20000));// неявное ожидание, применяется ко всем методам , ждет появления элемента
         BasePage.setDriver(driver);
     }
     @AfterMethod
