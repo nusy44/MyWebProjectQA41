@@ -21,4 +21,14 @@
             </class>
         </classes>
     </test>
+    <test name="FireFoxTests">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tests.PhoneBookTest">
+                <methods>
+                    <include name="registrationOfAnAlreadyRegisteredUser"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

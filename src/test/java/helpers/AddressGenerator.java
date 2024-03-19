@@ -16,7 +16,7 @@ public class AddressGenerator {
 
     private static final Random random = new Random();
 
-    public static String generateAddress(){
+    public static String generateAddress(String string){
         String city = cities[random.nextInt(cities.length)];
         String street = streets[random.nextInt(streets.length)];
         int number = random.nextInt(300);

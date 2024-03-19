@@ -5,6 +5,7 @@ import helpers.*;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import model.Contact;
+import model.User;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -167,11 +168,46 @@ public class PhoneBookTest extends BaseTest {
          String actualAlertText = alert.getText();
          boolean isAlertHandler = actualAlertText.contains(expectedString);
          Assert.assertTrue(isAlertHandler);
-         TakeScreen.takeScreenshot("Already registered User can not be registered");
+       //  TakeScreen.takeScreenshot("Already registered User can not be registered");
          Thread.sleep(3000);
+         TakeScreen.takeScreenshot("Already registered User can not be registered");
          driver.quit();
 
    }
+
+    @Test
+    @Description("Registration attempt test.")
+    public void reRegistrationAttempt() throws InterruptedException {
+        Allure.description(" Registration attempt test.");
+        MainPage mainPage = new MainPage(getDriver());
+        Allure.step("Open LOGIN menu");
+        LoginPage lpage = mainPage.openTopMenu(TopMenuItem.LOGIN.toString());
+
+        User user = new User(EmailGenerator.generateEmail(7,7,3), PasswordStringGenerator.generateString());
+        lpage.fillEmailField(user.getUserEmail())
+                .fillPasswordField(user.getUserPassword());
+
+        Alert alert =  lpage.clickByRegistartionButton();
+
+        if (alert==null){
+
+            ContactsPage contactsPage = new ContactsPage(getDriver());
+
+            lpage = contactsPage.clickBySignOutButton();
+            Alert alert1= lpage.fillEmailField(user.getUserEmail())
+                    .fillPasswordField(user.getUserPassword()).clickByRegistartionButton();
+            //Thread.sleep(3000);
+            if (alert1!=null){
+                boolean res = AlertHandler.handleAlert(alert1, "exist");
+                System.out.println("RESULT "+res);
+                Assert.assertTrue(res);
+            }
+
+        }else {
+            TakeScreen.takeScreenshot("reRegistrationAttempt");}
+    }
+
+
 }
 
 
